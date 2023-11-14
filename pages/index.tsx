@@ -4,14 +4,7 @@ import Post, { PostProps } from "../components/Post";
 import Layout from "../components/Layout";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.post.findMany({
-    where: { published: true },
-    include: {
-      author: {
-        select: { name: true },
-      },
-    },
-  });
+  const feed = await prisma.post.findMany();
   return {
     props: { feed },
     revalidate: 10,
