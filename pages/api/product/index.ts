@@ -5,14 +5,14 @@ import prisma from "../../../lib/prisma";
 // Required fields in body: title
 // Optional fields in body: content
 export default async function handle(req, res) {
-  const { title, price } = req.body;
+  const { title, price, thumb } = req.body;
 
   const session = await getSession({ req });
   const result = await prisma.product.create({
     data: {
       title: title,
       price: price,
-      // author: { connect: { email: session?.user?.email } },
+      thumb,
     },
   });
   res.json(result);
