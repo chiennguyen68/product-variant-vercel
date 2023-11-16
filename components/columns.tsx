@@ -1,8 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, ArrowUpDown } from "lucide-react";
-import { Checkbox } from "../components/ui/checkbox";
+import { Checkbox } from "./ui/checkbox";
 
-import { Button } from "../components/ui/button";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../components/ui/dropdown-menu";
+} from "./ui/dropdown-menu";
 
 export type Product = {
   id?: string | "";

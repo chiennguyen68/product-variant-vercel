@@ -8,7 +8,7 @@ import Sidebar from "../components/dashboard/Sidebar/Sidebar";
 import AdminNavbar from "../components/dashboard/Navbars/AdminNavbar";
 import HeaderStats from "../components/dashboard/Headers/HeaderStats";
 import { DataTable } from "../components/data-table";
-import { columns } from "./columns";
+import { columns } from "../components/columns";
 import { useEffect, useState } from "react";
 
 export const getStaticProps: GetStaticProps = async () => {
