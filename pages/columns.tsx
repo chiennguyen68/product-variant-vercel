@@ -1,4 +1,3 @@
-"use client";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 import { Checkbox } from "../components/ui/checkbox";
@@ -21,7 +20,7 @@ export type Product = {
   createdAt?: any;
 };
 
-export const columns: ColumnDef<Product>[] = [
+export const columns = [
   {
     id: "select",
     header: ({ table }: any) => (
