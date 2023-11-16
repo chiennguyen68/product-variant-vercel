@@ -244,7 +244,7 @@ const ProductWrapper = ({ listProduct }: any) => {
             >
               <Card className="hover:grow hover:shadow">
                 <CardHeader>
-                  <CardTitle>{p.name}</CardTitle>
+                  <CardTitle>{p.title}</CardTitle>
                   <CardDescription className="w-[200px] h-[150px]">
                     <img
                       style={{ height: "100%" }}
@@ -253,7 +253,7 @@ const ProductWrapper = ({ listProduct }: any) => {
                           ? p.thumb
                           : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn8sZtI7wrlEfa49bSTN5a3uk8b4twPve8nA&usqp=CAU"
                       }
-                      alt={p.name}
+                      alt={p.title}
                     />
                   </CardDescription>
                 </CardHeader>
