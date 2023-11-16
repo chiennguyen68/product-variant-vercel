@@ -34,13 +34,20 @@ import {
   PopoverTrigger,
 } from "../components/ui/popover";
 import { Skeleton } from "../components/ui/skeleton";
+import Pagination from "../components/Pagination/Pagination";
 
 export const getStaticProps: GetStaticProps = async () => {
   const feed = await prisma.post.findMany();
   const products = await prisma.product.findMany();
+  const serializedProducts = products.map((product) => ({
+    ...product,
+    createdAt: product.createdAt.toISOString(), // Convert Date to string
+    updatedAt: product.updatedAt.toISOString(), // Convert Date to string
+  }));
+
   const brands = await prisma.brand.findMany();
   return {
-    props: { feed, products, brands },
+    props: { feed, products: serializedProducts, brands },
     revalidate: 10,
   };
 };
@@ -60,6 +67,20 @@ const Blog: React.FC<Props> = (props) => {
   const [showError, setShowError] = useState(false);
   const handleSearch = (e: any) => {
     setSearchTerm(e.target.value);
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 10;
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleSelectBrand = (brand: any) => {
+    setValueSelect(brand.name);
+    setOpenSelect(false);
+    listProduct.filter((product: any) => product.brandId === brand.id);
+    setListProduct(listProduct);
   };
 
   return (
@@ -92,6 +113,19 @@ const Blog: React.FC<Props> = (props) => {
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-[200px] p-0">
+                          <ul>
+                            {listBrand.map((b: any) => {
+                              return (
+                                <li
+                                  key={b.id}
+                                  className="p-4 bg-white"
+                                  onClick={() => handleSelectBrand(b)}
+                                >
+                                  {b.name}
+                                </li>
+                              );
+                            })}
+                          </ul>
                           {/* <Command>
                             <CommandInput placeholder="Search brand..." />
                             <CommandEmpty>Không có nhãn hiệu.</CommandEmpty>
@@ -186,6 +220,11 @@ const Blog: React.FC<Props> = (props) => {
                 </>
               )}
             </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </section>
         </div>
       </main>
@@ -206,8 +245,9 @@ const ProductWrapper = ({ listProduct }: any) => {
               <Card className="hover:grow hover:shadow">
                 <CardHeader>
                   <CardTitle>{p.name}</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="w-[200px] h-[150px]">
                     <img
+                      style={{ height: "100%" }}
                       src={
                         p.thumb
                           ? p.thumb
